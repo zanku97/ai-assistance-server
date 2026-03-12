@@ -1,3 +1,9 @@
+app.post("/chat", async (req, res) => {
+
+const message = req.body.message;
+
+const completion = await client.chat.completions.create({
+model: "llama-3.1-8b-instant",
 messages: [
 {
 role: "system",
@@ -24,3 +30,10 @@ role: "user",
 content: message
 }
 ]
+});
+
+res.json({
+reply: completion.choices[0].message.content
+});
+
+});
