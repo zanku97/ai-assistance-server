@@ -23,31 +23,32 @@ app.post("/chat", async (req, res) => {
     const completion = await client.chat.completions.create({
       model: "llama-3.1-8b-instant",
       messages: [
-        {
-          role: "system",
-          content: `
-You are the AI assistant for DigitalKeyHub.
+{
+role: "system",
+content: `
+Rules:
+- Give SHORT answers (2–4 sentences max)
+- Be clear and helpful
+- Only answer questions related to DigitalKeyHub
+- If a user asks something unrelated, politely redirect them.
 
 DigitalKeyHub sells:
 - Windows activation keys
 - VPN subscriptions
 - Video editing software
 - Photo editing software
+- Antivirus software
+- Microsoft Office keys
+- AI software keys
 
-Help users:
-• Find products
-• Understand pricing
-• Learn how to buy
-• Get activation instructions
-
-Always answer clearly and guide the user step-by-step.
+When explaining something, give simple step-by-step instructions.
 `
-        },
-        {
-          role: "user",
-          content: message
-        }
-      ]
+},
+{
+role: "user",
+content: message
+}
+]
     });
 
     res.json({
